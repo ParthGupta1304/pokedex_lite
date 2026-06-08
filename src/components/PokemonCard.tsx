@@ -23,8 +23,8 @@ export default function PokemonCard({ pokemon, onClick }: PokemonCardProps) {
         height={96}
         unoptimized
         className="h-24 w-24 object-contain"/>
-      <p className="mt-2 text-xs text-gray-400">#{id.padStart(3, "0")}</p>
-      <p className="font-semibold">{NameCapitalise(pokemon.name)}</p>
+      <p className="mt-2 text-s text-gray-600">#{id.padStart(3, "0")}</p>
+      <p className="font-semibold text-black text-2xl">{NameCapitalise(pokemon.name)}</p>
     </button>
   );
 }
