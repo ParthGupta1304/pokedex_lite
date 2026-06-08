@@ -64,19 +64,13 @@ export default function Home() {
       ) : (
         <PokemonGrid
           pokemon={pageItems}
-          onCardClick={(name) => router.push(`/pokemon/${name}`)}
-        />
+          onCardClick={(name) => router.push(`/pokemon/${name}`)}/>
       )}
-      <PokemonGrid
-        pokemon={pageItems}
-        onCardClick={(name) => router.push(`/pokemon/${name}`)}
-      />
       <div className="mt-6 flex items-center justify-center gap-4">
         <button
           onClick={() => setCurrentPage((p) => p - 1)}
           disabled={currentPage === 0}
-          className="rounded px-4 py-2 bg-red-600 disabled:opacity-40 "
-        >
+          className="rounded px-4 py-2 bg-red-600 disabled:opacity-40 ">
           Previous
         </button>
         <span>
