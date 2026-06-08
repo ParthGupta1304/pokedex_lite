@@ -1,7 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getPokemonIndex } from "@/lib/api";
 import PokemonGrid from "@/components/PokemonGrid";
 import { getVisiblePokemon } from "@/lib/filterPipline";
@@ -10,6 +10,17 @@ const PAGE_SIZE = 20;
 export default function Home() {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchTerm);
+      setCurrentPage(0); 
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["pokemon-index"],
     queryFn: getPokemonIndex,
@@ -32,23 +43,32 @@ export default function Home() {
     index: data.results,
     selectedType: "",
     typeNameSet: new Set(),
-    searchTerm: "",
+    searchTerm: debouncedSearch,
     page: currentPage,
     pageSize: PAGE_SIZE,
   });
 
   const totalPages = Math.ceil(total / PAGE_SIZE);
-  return(
+  return (
     <main className="p-6">
       <h1 className="mb-6 text-3xl text-center font-bold">Pokédex Lite</h1>
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder="Search Pokémon..."
+        className="mb-6 w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
       <PokemonGrid
         pokemon={pageItems}
-        onCardClick={(name) => router.push(`/pokemon/${name}`)}/>
+        onCardClick={(name) => router.push(`/pokemon/${name}`)}
+      />
       <div className="mt-6 flex items-center justify-center gap-4">
         <button
           onClick={() => setCurrentPage((p) => p - 1)}
           disabled={currentPage === 0}
-          className="rounded px-4 py-2 bg-red-600 disabled:opacity-40">
+          className="rounded px-4 py-2 bg-red-600 disabled:opacity-40"
+        >
           Previous
         </button>
         <span>
@@ -57,7 +77,8 @@ export default function Home() {
         <button
           onClick={() => setCurrentPage((p) => p + 1)}
           disabled={currentPage >= totalPages - 1}
-          className="rounded px-4 py-2 bg-red-600 disabled:opacity-40">
+          className="rounded px-4 py-2 bg-red-600 disabled:opacity-40"
+        >
           Next
         </button>
       </div>
