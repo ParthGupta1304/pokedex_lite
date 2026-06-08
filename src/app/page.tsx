@@ -59,6 +59,14 @@ export default function Home() {
         placeholder="Search Pokémon..."
         className="mb-6 w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
+      {pageItems.length === 0 ? (
+        <p className="text-center text-gray-200 mt-12">No Pokémon found :(</p>
+      ) : (
+        <PokemonGrid
+          pokemon={pageItems}
+          onCardClick={(name) => router.push(`/pokemon/${name}`)}
+        />
+      )}
       <PokemonGrid
         pokemon={pageItems}
         onCardClick={(name) => router.push(`/pokemon/${name}`)}
@@ -67,7 +75,7 @@ export default function Home() {
         <button
           onClick={() => setCurrentPage((p) => p - 1)}
           disabled={currentPage === 0}
-          className="rounded px-4 py-2 bg-red-600 disabled:opacity-40"
+          className="rounded px-4 py-2 bg-red-600 disabled:opacity-40 "
         >
           Previous
         </button>
