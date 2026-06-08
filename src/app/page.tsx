@@ -7,6 +7,8 @@ import PokemonGrid from "@/components/PokemonGrid";
 import { getVisiblePokemon } from "@/lib/filterPipline";
 import { getTypeList } from "@/lib/api";
 import { getPokemonByType } from "@/lib/api";
+import { useFavorites } from "@/hooks/useFavourites";
+
 const PAGE_SIZE = 20;
 export default function Home() {
   const router = useRouter();
@@ -14,7 +16,8 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [selectedType, setSelectedType] = useState("");
-  
+  const { isFavorite, toggleFavorite } = useFavorites();
+
   useEffect(() => {
     setCurrentPage(0);}, [selectedType]
   );
@@ -78,11 +81,13 @@ export default function Home() {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder="Search Pokémon..."
-        className="mb-6 w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"/>
+        className="mb-6 w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
       <select
         value={selectedType}
         onChange={(e) => setSelectedType(e.target.value)}
-        className="mb-6 w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        className="mb-6 w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+      >
         <option value="">All Types</option>
         {typeListData?.results.map((t) => (
           <option key={t.name} value={t.name}>
@@ -97,6 +102,8 @@ export default function Home() {
         <PokemonGrid
           pokemon={pageItems}
           onCardClick={(name) => router.push(`/pokemon/${name}`)}
+          isFavorite={isFavorite}
+          onToggleFavorite={toggleFavorite}
         />
       )}
       <div className="mt-6 flex items-center justify-center gap-4">
