@@ -12,9 +12,11 @@ export default async function PokemonDetailPage({ params }: Props) {
   const pokemon =await getPokemonDetail(name);
   return (
     <main className="p-6 max-w-xl mx-auto">
-  <Link href="/" className="text-blue-500 hover:underline mb-4 inline-block">
-    ← Back to list
-  </Link>;
+      <Link
+        href="/"
+        className="text-blue-500 hover:underline mb-4 inline-block">
+        ← Back to list
+      </Link>
       <h1 className="text-3xl font-bold mb-2">
         {NameCapitalise(pokemon.name)}
       </h1>
@@ -34,12 +36,12 @@ export default async function PokemonDetailPage({ params }: Props) {
         {pokemon.types.map((t) => (
           <span
             key={t.type.name}
-            className="rounded-full bg-gray-800 px-3 py-1 text-sm">
+            className="rounded-full bg-gray-800 px-3 py-1 text-sm"
+          >
             {NameCapitalise(t.type.name)}
           </span>
         ))}
       </div>
-
 
       <ul className="mt-6 space-y-2">
         {pokemon.stats.map((s) => (
@@ -56,7 +58,8 @@ export default async function PokemonDetailPage({ params }: Props) {
           {pokemon.abilities.map((a) => (
             <span
               key={a.ability.name}
-              className="rounded-full bg-gray-800 px-3 py-1 text-sm">
+              className="rounded-full bg-gray-800 px-3 py-1 text-sm"
+            >
               {NameCapitalise(a.ability.name)}
             </span>
           ))}

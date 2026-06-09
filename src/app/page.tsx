@@ -110,7 +110,7 @@ export default function Home() {
         <button
           onClick={() => setCurrentPage((p) => p - 1)}
           disabled={currentPage === 0}
-          className="rounded px-4 py-2 bg-red-600 disabled:opacity-40 "
+          className="rounded px-4 py-2 bg-red-500 transition active:scale-95 hover:bg-red-600 disabled:opacity-40 "
         >
           Previous
         </button>
@@ -120,7 +120,7 @@ export default function Home() {
         <button
           onClick={() => setCurrentPage((p) => p + 1)}
           disabled={currentPage >= totalPages - 1}
-          className="rounded px-4 py-2 bg-red-600 disabled:opacity-40"
+          className="rounded px-4 py-2 bg-red-500 transition active:scale-95 hover:bg-red-600 disabled:opacity-40"
         >
           Next
         </button>

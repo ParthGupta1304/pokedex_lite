@@ -17,16 +17,16 @@ export default function PokemonCard({ pokemon, onClick, isFavorite, onToggleFavo
   const id= extractPokemonId(pokemon.url);
   const imageUrl =getPokemonImageUrl(id);
   return (
-    <button
+    <div
       onClick={() => onClick(pokemon.name)}
-      className="flex flex-col items-center rounded-xl border relative border-gray-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-md w-full"
+      className="flex flex-col items-center rounded-xl border relative border-gray-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-md w-full cursor-pointer"
     >
       <button
         onClick={(e) => {
           e.stopPropagation();
           onToggleFavorite(pokemon.name);
         }}
-        className="absolute top-2 right-2 text-xl"
+        className="absolute top-2 right-2 text-xl transition duration-150 active:scale-125"
         aria-label="Toggle favorite"
       >
         {isFavorite ? "❤️" : "🤍"}
@@ -43,6 +43,6 @@ export default function PokemonCard({ pokemon, onClick, isFavorite, onToggleFavo
       <p className="font-semibold text-black text-2xl">
         {NameCapitalise(pokemon.name)}
       </p>
-    </button>
+    </div>
   );
 }
