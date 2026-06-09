@@ -1,8 +1,8 @@
 # Pokédex Lite
 
-A web app that lets you browse, search, filter, and favorite Pokémon. Built as part of a frontend assignment.
+A web app that lets you browse, search, filter, and favorite Pokémon.
 
-**Live demo:** _add your deployment URL here_
+**Live demo:** https://pokedex-lite-iota.vercel.app/
 
 ---
 
@@ -61,7 +61,7 @@ npm start
 The PokéAPI index only returns names and URLs — no type information. The obvious approach (fetch every Pokémon's details to check its type) would mean thousands of requests. Instead, when a type is selected, a single call to `/type/{type}` returns all Pokémon of that type. That list is turned into a `Set` and used to filter the already-loaded index client-side. Fast and cheap.
 
 **Search + type filter together**
-Both filters needed to compose cleanly. This is handled in `filterPipeline.ts` — a pure function that takes the full index, the active type set, and the search term, applies them in sequence, then slices the result for the current page. Easy to test, easy to change.
+Both filters needed to compose cleanly. This is handled in `filterPipline.ts` — a pure function that takes the full index, the active type set, and the search term, applies them in sequence, then slices the result for the current page. Easy to test, easy to change.
 
 **SSR detail page with Next.js app router**
 The detail page is an async server component. `params` in Next.js 15 is a Promise, so it needs to be awaited before reading `name`. Took a moment to figure out from the docs but works cleanly.
