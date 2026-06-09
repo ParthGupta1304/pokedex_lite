@@ -10,11 +10,11 @@ interface Props {
 export default async function PokemonDetailPage({ params }: Props) {
   const { name }= await params;
   const pokemon =await getPokemonDetail(name);
+  return (
+    <main className="p-6 max-w-xl mx-auto">
   <Link href="/" className="text-blue-500 hover:underline mb-4 inline-block">
     ← Back to list
   </Link>;
-  return (
-    <main className="p-6 max-w-xl mx-auto">
       <h1 className="text-3xl font-bold mb-2">
         {NameCapitalise(pokemon.name)}
       </h1>

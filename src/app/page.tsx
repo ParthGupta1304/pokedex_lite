@@ -115,7 +115,7 @@ export default function Home() {
           Previous
         </button>
         <span>
-          Page{currentPage + 1} of {totalPages}
+          Page {currentPage + 1} of {totalPages}
         </span>
         <button
           onClick={() => setCurrentPage((p) => p + 1)}
